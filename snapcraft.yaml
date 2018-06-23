@@ -32,7 +32,7 @@ confinement: strict
 
 apps:
   trenchbroom:
-    command: desktop-launch trenchbroom-editor
+    command: desktop-launch trenchbroom
     plugs: [ wayland, x11, desktop, opengl, home ]
 
 parts:
@@ -116,11 +116,6 @@ parts:
     prime:
       - $files-from-stage-packages
       - $localizations
-  wrapper:
-    plugin: dump
-    organize:
-      trenchbroom-editor: usr/bin/trenchbroom-editor
-    after: [ env ]
   env:
     plugin: nil
     stage-packages:
