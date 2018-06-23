@@ -1,5 +1,6 @@
 name: trenchbroom
 version: 2.0.2
+grade: stable
 summary: A modern cross-platform level editor for Quake-engine based games.
 description: |
   TrenchBroom is a cross platform level editor for Quake-engine based games. It supports Quake, Quake 2, and Hexen 2 and runs on Windows (XP and newer), Mac OS X (10.6 and newer) and Linux. TrenchBroom is easy to use and provides many simple and advanced tools to create complex and interesting levels with ease.
@@ -79,13 +80,10 @@ parts:
       - libtiff5-dev
       - libxtst-dev
       - zlib1g-dev
-    override-build: |
-      set -eu
-      PATH="${SNAPCRAFT_STAGE}/bin:${PATH}"
-      ./autogen.sh
-      ./configure --prefix="${SNAPCRAFT_STAGE}" --with-gtk=2 --with-opengl
-      make --jobs=$(nproc)
-      make prefix="${SNAPCRAFT_PART_INSTALL}" install
+    configflags:
+      - --with-gtk=2
+      - --with-opengl
+    install-via: prefix
     stage-packages:
       - binutils
     filesets:
@@ -110,9 +108,6 @@ parts:
       - $headers
       - $libraries
       - $localizations
-    override-stage: |
-      set -eu
-      snapcraftctl stage
     prime:
       - $files-from-stage-packages
       - $localizations
@@ -126,4 +121,9 @@ parts:
       - libxxf86vm1
       - libfreeimage3
       - libfreetype6
+      - libxtst6
+      - libsecret-1-0
+      - libice6
+      - libnotify4
+      - libsm6
     after: [ trenchbroom ]
