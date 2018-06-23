@@ -38,9 +38,9 @@ apps:
 
 parts:
   trenchbroom:
-    source: https://github.com/kduske/TrenchBroom/archive/v2.0.2.tar.gz
-    source-type: tar
-    source-checksum: sha1/b3ac0387b1031f0f0276c7d4f6810301dd71a1e9
+    source: https://github.com/kduske/TrenchBroom.git
+    source-type: git
+    source-tag: v2.0.2
     plugin: cmake
     configflags:
       - -DCMAKE_INSTALL_PREFIX=/usr
