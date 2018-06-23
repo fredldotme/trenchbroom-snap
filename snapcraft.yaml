@@ -111,6 +111,7 @@ parts:
     prime:
       - $files-from-stage-packages
       - $localizations
+      - $libraries
   env:
     plugin: nil
     stage-packages:
