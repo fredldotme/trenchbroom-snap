@@ -86,6 +86,31 @@ parts:
     install-via: prefix
     stage-packages:
       - binutils
+    filesets:
+      autoconf-macros:
+        - share/aclocal/*
+      bakefiles:
+        - share/bakefile/*
+      files-from-stage-packages:
+        - usr/*
+      executables:
+        - bin/*
+      headers:
+        - include/*
+      libraries:
+        - lib/*
+      localizations:
+        - share/locale/*
+    stage:
+      - $autoconf-macros
+      - $executables
+      - $files-from-stage-packages
+      - $headers
+      - $libraries
+      - $localizations
+    prime:
+      - $files-from-stage-packages
+      - $localizations
   env:
     plugin: nil
     stage-packages:
