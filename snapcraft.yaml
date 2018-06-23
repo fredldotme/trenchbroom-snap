@@ -42,7 +42,6 @@ parts:
     source-checksum: sha1/b3ac0387b1031f0f0276c7d4f6810301dd71a1e9
     plugin: cmake
     configflags:
-      - -DCMAKE_INSTALL_PREFIX=$SNAPCRAFT_PART_INSTALL
       - -DwxWidgets_PREFIX=$SNAPCRAFT_STAGE
     build-packages:
       - make
