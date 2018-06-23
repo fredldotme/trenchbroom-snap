@@ -83,7 +83,6 @@ parts:
     configflags:
       - --with-gtk=2
       - --with-opengl
-    install-via: prefix
     stage-packages:
       - binutils
     filesets:
