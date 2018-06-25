@@ -36,6 +36,13 @@ apps:
     command: desktop-launch trenchbroom
     plugs: [ wayland, x11, desktop, opengl, home ]
 
+plugs:
+  quake-modtools:
+    content: quake-modtools
+    interface: content
+    target: $SNAP/quaketools
+    default-provider: quake-toolkit:quake-modtools
+
 parts:
   trenchbroom:
     source: https://github.com/kduske/TrenchBroom.git
