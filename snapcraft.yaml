@@ -34,7 +34,7 @@ confinement: strict
 apps:
   trenchbroom:
     command: desktop-launch trenchbroom
-    plugs: [ wayland, x11, desktop, opengl, home ]
+    plugs: [ wayland, x11, desktop, opengl, home, removable-media ]
 
 plugs:
   quake-modtools:
