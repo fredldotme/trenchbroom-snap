@@ -30,17 +30,27 @@ description: |
     - Smart entity property editors
     
   To enable Quake engines within the editor install and connect an engine:
-    snap install quakespasm-beidl # or vkquake, for Quake 1
-    snap install yamagi-quake2-beidl # for Quake 2
+  
+    # Quake 1 support
+    snap install quakespasm-beidl # or vkquake
     snap connect trenchbroom:quake-engine quakespasm-beidl:quake-engine
+    
+    # Quake 2 support
+    snap install yamagi-quake2-beidl
     snap connect trenchbroom:quake2-engine yamagi-quake2-beidl:quake2-engine
+  
+  The engine will be available at one of these locations:
+    /snap/trenchbroom/current/quake-engine/
+    /var/lib/snapd/snap/trenchbroom/current/quake-engine/
+    /snap/trenchbroom/current/quake2-engine/
+    /var/lib/snapd/snap/trenchbroom/current/quake2-engine/
 
 confinement: strict
 
 apps:
   trenchbroom:
     command: desktop-launch trenchbroom
-    plugs: [ x11, desktop, opengl, home, removable-media ]
+    plugs: [ x11, desktop, opengl, pulseaudio, home, removable-media ]
 
 plugs:
   quake-modtools:
@@ -52,12 +62,10 @@ plugs:
     content: quake-engine
     interface: content
     target: $SNAP/quake-engine
-    default-provider: quakespasm-beidl:quake-engine
   quake2-engine:
     content: quake2-engine
     interface: content
     target: $SNAP/quake2-engine
-    default-provider: yamagi-quake2-beidl:quake2-engine
 
 parts:
   trenchbroom:
