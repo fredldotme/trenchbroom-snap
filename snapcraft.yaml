@@ -1,5 +1,5 @@
 name: trenchbroom
-version: 2.0.2
+version: 2.0.5
 grade: stable
 summary: A modern cross-platform level editor for Quake-engine based games.
 description: |
@@ -71,7 +71,7 @@ parts:
   trenchbroom:
     source: https://github.com/kduske/TrenchBroom.git
     source-type: git
-    source-tag: v2.0.2
+    source-tag: v2.0.5
     plugin: cmake
     configflags:
       - -DCMAKE_INSTALL_PREFIX=/usr
