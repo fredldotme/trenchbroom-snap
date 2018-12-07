@@ -104,7 +104,7 @@ parts:
     source-checksum: sha1/f999c3cf1887c0a60e519214c14b15cb9bb5ea6e
     plugin: autotools
     override-build: |
-      curl -o wxgtk.patch https://raw.githubusercontent.com/kduske/TrenchBroom/master/patches/wxWidgets/textentry_gtk_suppressevents.patch
+      curl -o wxgtk.patch https://raw.githubusercontent.com/kduske/TrenchBroom/v$SNAPCRAFT_PROJECT_VERSION/patches/wxWidgets/textentry_gtk_suppressevents.patch
       patch -p0 < wxgtk.patch
       snapcraftctl build
     build-packages:
