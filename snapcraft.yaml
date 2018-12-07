@@ -49,6 +49,7 @@ description: |
     /var/lib/snapd/snap/trenchbroom/current/quake2-engine/
 
 confinement: strict
+base: core18
 
 apps:
   trenchbroom:
