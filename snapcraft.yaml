@@ -1,9 +1,12 @@
 name: trenchbroom
-version: 2.0.6
+version: 2.1.0
 grade: stable
 summary: A modern cross-platform level editor for Quake-engine based games.
 description: |
-  TrenchBroom is a cross platform level editor for Quake-engine based games. It supports Quake, Quake 2, and Hexen 2 and runs on Windows (XP and newer), Mac OS X (10.6 and newer) and Linux. TrenchBroom is easy to use and provides many simple and advanced tools to create complex and interesting levels with ease.
+  TrenchBroom is a cross platform level editor for Quake-engine based games.
+  It supports Quake, Quake 2, and Hexen 2 and runs on Windows (XP and newer),
+  Mac OS X (10.6 and newer) and Linux. TrenchBroom is easy to use and provides
+  many simple and advanced tools to create complex and interesting levels with ease.
   
   General
     - Full support for editing in 3D and in up to three 2D views
@@ -71,7 +74,7 @@ parts:
   trenchbroom:
     source: https://github.com/kduske/TrenchBroom.git
     source-type: git
-    source-tag: v2.0.6
+    source-tag: v2.1.0
     plugin: cmake
     configflags:
       - -DCMAKE_INSTALL_PREFIX=/usr
@@ -100,7 +103,15 @@ parts:
     source-type: tar
     source-checksum: sha1/f999c3cf1887c0a60e519214c14b15cb9bb5ea6e
     plugin: autotools
+    override-build: |
+      curl -o wxgtk.patch https://raw.githubusercontent.com/kduske/TrenchBroom/master/patches/wxWidgets/textentry_gtk_suppressevents.patch
+      patch -p0 < wxgtk.patch
+      snapcraftctl build
     build-packages:
+      - curl
+      - make
+      - cmake
+      - build-essential
       - binutils
       - gettext
       - libcairo2-dev
