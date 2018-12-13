@@ -1,0 +1,15 @@
+TrenchBroom is a modern cross-platform level editor for Quake-engine based games.
+
+=============================
+
+This repository provides the Snap packaging basis for development, self-education
+and advancement of existing software functionality on Snap-based systems.
+
+Upstream website:
+http://kristianduske.com/trenchbroom/
+
+More information about Snap packages:
+http://snapcraft.io/
+
+Snap release builds:
+https://code.launchpad.net/~beidl/trenchbroom/+git/trenchbroom
