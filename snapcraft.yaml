@@ -162,7 +162,7 @@ parts:
     plugin: nil
     stage-packages:
       - zlib1g
-      - libglew1.13
+      - libglew2.0
       - libjpeg-turbo8
       - freeglut3
       - libxxf86vm1
