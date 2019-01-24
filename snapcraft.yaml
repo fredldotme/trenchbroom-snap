@@ -4,7 +4,7 @@ grade: stable
 summary: A modern cross-platform level editor for Quake-engine based games.
 description: |
   TrenchBroom is a cross platform level editor for Quake-engine based games.
-  It supports Quake, Quake 2, and Hexen 2 and runs on Windows (XP and newer),
+  It supports Quake, Quake 2, Quake 3 and Hexen 2 and runs on Windows (XP and newer),
   Mac OS X (10.6 and newer) and Linux. TrenchBroom is easy to use and provides
   many simple and advanced tools to create complex and interesting levels with ease.
   
