@@ -1,5 +1,5 @@
 name: trenchbroom
-version: 2019.1
+version: v2019.3
 grade: stable
 summary: A modern cross-platform level editor for Quake-engine based games.
 description: |
@@ -44,8 +44,9 @@ description: |
   
   The engine will be available at one of these locations:
     /snap/trenchbroom/current/quake-engine/
-    /var/lib/snapd/snap/trenchbroom/current/quake-engine/
     /snap/trenchbroom/current/quake2-engine/
+  Or:
+    /var/lib/snapd/snap/trenchbroom/current/quake-engine/
     /var/lib/snapd/snap/trenchbroom/current/quake2-engine/
 
 confinement: strict
@@ -75,7 +76,7 @@ parts:
   trenchbroom:
     source: https://github.com/kduske/TrenchBroom.git
     source-type: git
-    source-tag: v2019.1
+    source-tag: v2019.3
     plugin: cmake
     configflags:
       - -DCMAKE_INSTALL_PREFIX=/usr
