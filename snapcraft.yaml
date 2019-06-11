@@ -1,5 +1,5 @@
 name: trenchbroom
-version: v2019.6
+version: v2019.5
 grade: stable
 summary: A modern cross-platform level editor for Quake-engine based games.
 description: |
@@ -71,6 +71,10 @@ plugs:
     content: quake2-engine
     interface: content
     target: $SNAP/quake2-engine
+  quake3-engine:
+    content: quake3-engine
+    interface: content
+    target: $SNAP/quake3-engine
 
 parts:
   trenchbroom:
