@@ -1,5 +1,5 @@
 name: trenchbroom
-version: v2019.5
+version: v2021.1
 grade: stable
 summary: A modern cross-platform level editor for Quake-engine based games.
 description: |
@@ -50,11 +50,11 @@ description: |
     /var/lib/snapd/snap/trenchbroom/current/quake2-engine/
 
 confinement: strict
-base: core18
+base: core20
 
 apps:
   trenchbroom:
-    command: desktop-launch trenchbroom
+    command: bin/desktop-launch trenchbroom
     plugs: [ x11, desktop, opengl, pulseaudio, home, removable-media ]
 
 plugs:
@@ -77,109 +77,58 @@ plugs:
     target: $SNAP/quake3-engine
 
 parts:
+  desktop-qt5:
+    build-packages:
+      - qtbase5-dev
+      - dpkg-dev
+    make-parameters:
+      - FLAVOR=qt5
+    plugin: make
+    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
+    source-subdir: qt
+    stage-packages:
+      - libxkbcommon0
+      - ttf-ubuntu-font-family
+      - dmz-cursor-theme
+      - light-themes
+      - adwaita-icon-theme
+      - gnome-themes-standard
+      - shared-mime-info
+      - libqt5gui5
+      - libgdk-pixbuf2.0-0
+      - libqt5svg5
+      - locales-all
+      - xdg-user-dirs
+      - libopengl0
   trenchbroom:
     source: https://github.com/kduske/TrenchBroom.git
     source-type: git
     source-tag: $SNAPCRAFT_PROJECT_VERSION
     plugin: cmake
-    configflags:
-      - -DCMAKE_INSTALL_PREFIX=/usr
-      - -DwxWidgets_PREFIX=$SNAPCRAFT_STAGE
+    override-build: |
+      if [ -d "$SNAPCRAFT_PART_BUILD/build" ]; then
+          rm -rf "$SNAPCRAFT_PART_BUILD/build"
+      fi
+      mkdir "$SNAPCRAFT_PART_BUILD/build"
+      cd "$SNAPCRAFT_PART_BUILD/build"
+      cmake "$SNAPCRAFT_PART_SRC" -DCMAKE_BUILD_TYPE=Release
+      cmake --build . --target TrenchBroom-nomanual --parallel $(nproc --all)
+      cp -a "$SNAPCRAFT_PART_BUILD/build/app/trenchbroom-nomanual" "$SNAPCRAFT_PART_BUILD/build/app/trenchbroom"
+      mkdir "$SNAPCRAFT_PART_BUILD/build/app/manual"
+      cmake --install . --prefix "$SNAPCRAFT_PART_INSTALL"
     build-packages:
-      - make
-      - cmake
-      - build-essential
-      - libgtk2.0-dev
-      - libjpeg-turbo8-dev
+      - qt5-default
+      - libqt5svg5-dev
       - freeglut3-dev
       - libglew-dev
       - mesa-common-dev
+      - build-essential
       - libglm-dev
       - libxxf86vm-dev
-      - libgl1-mesa-dev
-      - libx11-xcb-dev
-      - libxft-dev
-      - libxi-dev
       - libfreeimage-dev
       - libfreetype6-dev
       - pandoc
-    after: [ wxwidgets, desktop-gtk2 ]
-  wxwidgets:
-    source: https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.1/wxWidgets-3.1.1.tar.bz2
-    source-type: tar
-    source-checksum: sha1/f999c3cf1887c0a60e519214c14b15cb9bb5ea6e
-    plugin: autotools
-    override-build: |
-      TB_GH_URL=https://raw.githubusercontent.com/kduske/TrenchBroom
-      TB_GH_PATCH0=patches/wxWidgets/textentry_gtk_suppressevents.patch
-      TB_GH_PATCH0_NAME=wxgtk.patch
-      TB_GH_PATCH1=patches/wxWidgets/motion_notify.patch
-      TB_GH_PATCH1_NAME=wxgtk2.patch
-      curl -o $TB_GH_PATCH0_NAME $TB_GH_URL/$SNAPCRAFT_PROJECT_VERSION/$TB_GH_PATCH0
-      patch -p0 < $TB_GH_PATCH0_NAME
-      curl -o $TB_GH_PATCH1_NAME $TB_GH_URL/$SNAPCRAFT_PROJECT_VERSION/$TB_GH_PATCH1
-      patch -p0 < $TB_GH_PATCH1_NAME
-      snapcraftctl build
-    build-packages:
-      - curl
-      - make
       - cmake
-      - build-essential
-      - binutils
-      - gettext
-      - libcairo2-dev
-      - libexpat1-dev
-      - libgtk2.0-dev
-      - libjpeg-dev
-      - libnotify-dev
-      - libpng-dev
-      - libsecret-1-dev
-      - libtiff5-dev
-      - libxtst-dev
-      - zlib1g-dev
-    configflags:
-      - --with-gtk=2
-      - --with-opengl
-    install-via: prefix
-    filesets:
-      autoconf-macros:
-        - share/aclocal/*
-      bakefiles:
-        - share/bakefile/*
-      files-from-stage-packages:
-        - usr/*
-      executables:
-        - bin/*
-      headers:
-        - include/*
-      libraries:
-        - lib/*
-      localizations:
-        - share/locale/*
-    stage:
-      - $autoconf-macros
-      - $executables
-      - $files-from-stage-packages
-      - $headers
-      - $libraries
-      - $localizations
-    prime:
-      - $files-from-stage-packages
-      - $localizations
-      - $libraries
-  env:
-    plugin: nil
-    stage-packages:
-      - zlib1g
-      - libglew2.0
-      - libjpeg-turbo8
-      - freeglut3
-      - libxxf86vm1
-      - libfreeimage3
-      - libfreetype6
-      - libxtst6
-      - libsecret-1-0
-      - libice6
-      - libnotify4
-      - libsm6
-    after: [ trenchbroom ]
+      - p7zip-full
+      - ninja-build
+    after: [ desktop-qt5 ]
