@@ -54,7 +54,7 @@ base: core20
 
 apps:
   trenchbroom:
-    command: bin/desktop-launch trenchbroom
+    command: bin/desktop-launch trenchbroom -platform xcb
     plugs: [ x11, desktop, opengl, pulseaudio, home, removable-media ]
 
 plugs:
