@@ -64,6 +64,8 @@ architectures:
 
 apps:
   trenchbroom:
+    command-chain:
+    - bin/graphics-core22-wrapper
     command: usr/bin/trenchbroom -platform xcb
     extensions: [ kde-neon ]
     plugs: [ x11, desktop, opengl, pulseaudio, home, removable-media ]
@@ -86,6 +88,18 @@ plugs:
     content: quake3-engine
     interface: content
     target: $SNAP/quake3-engine
+  graphics-core22:
+    interface: content
+    target: $SNAP/graphics
+    default-provider: mesa-core22
+
+layout:
+  /usr/share/libdrm:
+    bind: $SNAP/graphics/libdrm
+  /usr/share/drirc.d:
+    symlink: $SNAP/graphics/drirc.d
+  /usr/share/X11:
+    symlink: $SNAP/graphics/X11
 
 parts:
   trenchbroom:
@@ -138,3 +152,12 @@ parts:
       - libjxr0
       - libraw20
       - libtinyxml2-9
+  graphics-core22:
+    after: [ trenchbroom ]
+    source: https://github.com/MirServer/graphics-core.git
+    plugin: dump
+    override-prime: |
+      craftctl default
+      ${CRAFT_PART_SRC}/bin/graphics-core22-cleanup mesa-core22 nvidia-core22
+    prime:
+    - bin/graphics-core22-wrapper
