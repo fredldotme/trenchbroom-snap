@@ -60,7 +60,6 @@ base: core22
 
 architectures:
 - build-on: amd64
-- build-on: arm64
 
 apps:
   trenchbroom:
